@@ -21,7 +21,7 @@ void Vertice::setPx(int x)
 //fijar ubicacion en y     
 void Vertice::setPy(int y)
 {
-    this->py
+    this->py;
 }
 //fijar ubicacion en z    
 void Vertice::setPz(int z)

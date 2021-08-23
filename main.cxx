@@ -1,9 +1,9 @@
 //Autores: Santiago Burbano Puin, Oscar Esteban Vera Marulanda, Miguel Jose Durán López
 #include <iostream>
 #include <string.h>
+#include "sistema.h"
 
 using namespace std;
-
 
 int main()
 {
@@ -42,8 +42,7 @@ int main()
             {
                 if (atoi(parametros[0]) == 0)
                 {
-                    char arch[10];
-                    strcpy(arch, parametros[0]);
+                    string arch = parametros[0];
                     cout << "Nombre del archivo: " << arch << endl;
                     cout << "Comando exitoso" << endl;
                 }
@@ -73,8 +72,7 @@ int main()
             {
                 if (atoi(parametros[0]) == 0)
                 {
-                    char NomObjt[10];
-                    strcpy(NomObjt, parametros[0]);
+                    string NomObjt = parametros[0];
                     cout << "Nombre del objeto" << NomObjt << endl;
                     cout << "Comando exitoso" << endl;
                 }
@@ -94,8 +92,7 @@ int main()
             {
                 if (atoi(parametros[0]) == 0)
                 {
-                    char NomObjt[10];
-                    strcpy(NomObjt, parametros[0]);
+                    string NomObjt = parametros[0];
                     cout << "Nombre del objeto: " << NomObjt << endl;
                     cout << "Comando exitoso" << endl;
                 }
@@ -127,11 +124,8 @@ int main()
             {
                 if (cant == 2 && atoi(parametros[0]) == 0 && atoi(parametros[1]) == 0)
                 {
-                    char NomObjt[10];
-                    char NomArch[10];
-
-                    strcpy(NomObjt, parametros[0]);
-                    strcpy(NomArch, parametros[1]);
+                    string NomObjt = parametros[0];
+                    string NomArch = parametros[1];
 
                     cout << "Nombre del objeto" << NomObjt << endl;
                     cout << "Nombre del archivo" << NomArch << endl;
@@ -163,8 +157,7 @@ int main()
                 if (cant == 4 && atoi(parametros[0]) != 0 && atoi(parametros[1]) != 0 && atoi(parametros[2]) != 0 && atoi(parametros[3]) == 0)
                 {
                     int px = atoi(parametros[0]), py = atoi(parametros[1]), pz = atoi(parametros[2]);
-                    char nomobjt[10];
-                    strcpy(nomobjt, parametros[3]);
+                    string nomobjt = parametros[3];
                     cout << "Nombre del objeto: " << nomobjt << endl
                          << "x: " << px << endl
                          << "y: " << py << endl
@@ -202,8 +195,7 @@ int main()
             {
                 if (cant == 1 && atoi(parametros[0]) == 0)
                 {
-                    char NomObjt[10];
-                    strcpy(NomObjt, parametros[0]);
+                    string NomObjt = parametros[0];
                     cout << "Nombre del objeto: " << NomObjt << endl;
                     cout << "Comando exitoso" << endl;
                 }
@@ -230,8 +222,7 @@ int main()
 
                     int in1 = atoi(parametros[0]);
                     int in2 = atoi(parametros[1]);
-                    char NomObjt[10];
-                    strcpy(NomObjt, parametros[2]);
+                    string NomObjt=parametros[2];
                     cout << "Nombre del objeto: " << NomObjt << endl;
                     cout << "Indice 1: " << in1 << endl;
                     cout << "Indice 2: " << in2 << endl;
@@ -258,10 +249,9 @@ int main()
                 if (cant == 2 && atoi(parametros[0]) != 0 && atoi(parametros[1]) == 0)
                 {
                     int in1 = atoi(parametros[0]);
-                    char NomObjt[10];
-                    strcpy(NomObjt, parametros[1]);
+                    string NomObjt=parametros[1];
                     cout << "Nombre del objeto: " << NomObjt << endl;
-                    cout << "Indice 1: " << in1<< endl;
+                    cout << "Indice 1: " << in1 << endl;
                 }
                 else
                 {

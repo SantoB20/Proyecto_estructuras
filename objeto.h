@@ -15,6 +15,6 @@ class Objeto{
         Objeto();
         void setNombre(std::string nom);
         std::string getNombre();
-}
+};
 
 #endif //_OBJETO_H_

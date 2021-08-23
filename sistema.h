@@ -10,6 +10,6 @@ class Sistema{
         std::list<Objeto> l_objetos;
         std::list<Caja> l_cajas;
     public:
-}
+};
 
 #endif //_SISTEMA_H_

@@ -18,6 +18,6 @@ class Vertice{
         int getPy();
         int getPz();
 
-}
+};
 
 #endif //_VERTICE_H_

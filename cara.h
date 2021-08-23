@@ -12,6 +12,6 @@ class Cara{
         Cara();
         void setNombre(unsigned int tam);
         unsigned int getNombre(); 
-}
+};
 
 #endif //_CARA_H_
