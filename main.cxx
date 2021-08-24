@@ -7,10 +7,63 @@ using namespace std;
 
 int main()
 {
+    Sistema sys;
     char comando[50], opcion[20];
     cout << "------------------" << endl;
     cout << "    Bienvenido" << endl;
     cout << "------------------" << endl;
+    Vertice v_0, v_1, v_2, v_3;
+    v_0.setIndice(0);
+    v_0.setPx(0);
+    v_0.setPy(0);
+    v_0.setPz(0);
+    v_1.setIndice(1);
+    v_1.setPx(10);
+    v_1.setPy(0);
+    v_1.setPz(0);
+    v_2.setIndice(2);
+    v_2.setPx(0);
+    v_2.setPy(10);
+    v_2.setPz(0);
+    v_3.setIndice(3);
+    v_3.setPx(10);
+    v_3.setPy(10);
+    v_3.setPz(0);
+    Cara c_0, c_1;
+    c_0.setTam(3);
+    c_1.setTam(3);
+    c_0.agregarIndice(v_0.getIndice());
+    c_0.agregarIndice(v_1.getIndice());
+    c_0.agregarIndice(v_2.getIndice());
+    c_1.agregarIndice(v_1.getIndice());
+    c_1.agregarIndice(v_2.getIndice());
+    c_1.agregarIndice(v_3.getIndice());
+    Objeto o_0;
+    o_0.setNombre("objeto_0");
+    if(o_0.agregarVertice(v_0) && o_0.agregarVertice(v_1) && o_0.agregarVertice(v_2) && o_0.agregarVertice(v_3))
+    {
+        cout << "Bien vertices"<<endl;
+        if(o_0.agregarCara(c_0) && o_0.agregarCara(c_1))
+        {
+            cout << "Bien caras"<<endl;
+        }
+        else
+        {
+            cout << "error caras"<<endl;
+        }
+    }
+    else
+    {
+        cout << "Error vertices"<<endl;
+    }
+    if(sys.agregarObjeto(o_0))
+    {
+        cout << "Bien objeto"<< endl;
+    }
+    else
+    {
+        cout << "Error objeto"<<endl;
+    }
     while (1)
     {
         char **parametros;
@@ -58,8 +111,14 @@ int main()
         }
         else if (strcmp(opcion, "listado") == 0)
         {
-            cout << "Memoria vacia" << endl;
-            cout << "Comando exitoso" << endl;
+            if(sys.tamLObjetos()==0)
+            {
+                cout << "Memoria vacia" << endl;
+            }
+            else
+            {
+                sys.listar();
+            }  
         }
         else if (strcmp(opcion, "envolvente") == 0)
         {
@@ -222,7 +281,7 @@ int main()
 
                     int in1 = atoi(parametros[0]);
                     int in2 = atoi(parametros[1]);
-                    string NomObjt=parametros[2];
+                    string NomObjt = parametros[2];
                     cout << "Nombre del objeto: " << NomObjt << endl;
                     cout << "Indice 1: " << in1 << endl;
                     cout << "Indice 2: " << in2 << endl;
@@ -249,7 +308,7 @@ int main()
                 if (cant == 2 && atoi(parametros[0]) != 0 && atoi(parametros[1]) == 0)
                 {
                     int in1 = atoi(parametros[0]);
-                    string NomObjt=parametros[1];
+                    string NomObjt = parametros[1];
                     cout << "Nombre del objeto: " << NomObjt << endl;
                     cout << "Indice 1: " << in1 << endl;
                 }

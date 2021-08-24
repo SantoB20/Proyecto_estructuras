@@ -10,6 +10,10 @@ class Sistema{
         std::list<Objeto> l_objetos;
         std::list<Caja> l_cajas;
     public:
+        unsigned int tamLObjetos();
+        unsigned int tamLCajas();
+        void listar();
+        bool agregarObjeto(Objeto o);
 };
 
 #endif //_SISTEMA_H_

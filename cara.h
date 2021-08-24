@@ -10,8 +10,10 @@ class Cara{
         std::vector<unsigned int> v_indices;
     public:
         Cara();
-        void setNombre(unsigned int tam);
-        unsigned int getNombre(); 
+        void setTam(unsigned int tam);
+        unsigned int getTam();
+        void agregarIndice(unsigned int ind);
+        std::vector<unsigned int> getIndices();
 };
 
 #endif //_CARA_H_
