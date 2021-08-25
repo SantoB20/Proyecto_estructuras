@@ -14,6 +14,7 @@ class Sistema{
         unsigned int tamLCajas();
         void listar();
         bool agregarObjeto(Objeto o);
+        bool envolvente();
 };
 
 #endif //_SISTEMA_H_

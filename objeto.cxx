@@ -51,13 +51,13 @@ bool Objeto::agregarVertice(Vertice v)
 //agrega una cara a l_caras
 bool Objeto::agregarCara(Cara c)
 {
-    if(l_caras.size()>0)
+    if (l_caras.size() > 0)
     {
         std::list<Cara>::iterator It;
         //revisa si c existe o no en el objeto
-        for(It=l_caras.begin();It!=l_caras.end();It++)
+        for (It = l_caras.begin(); It != l_caras.end(); It++)
         {
-            if(It->getIndices()==c.getIndices())
+            if (It->getIndices() == c.getIndices())
             {
                 return false;
             }
@@ -70,4 +70,67 @@ bool Objeto::agregarCara(Cara c)
         l_caras.push_back(c);
         return true;
     }
+}
+// Obtener el punto mínimo de x, y o z, segun
+int Objeto::Min(char coordenada)
+{
+    int min = 0;
+    std::list<Vertice>::iterator It;
+    for (It = l_vertices.begin(); It != l_vertices.end(); It++)
+    {
+        switch (coordenada)
+        {
+        case 'x':
+            if (It->getPx() <= min)
+            {
+                min = It->getPx();
+            }
+            break;
+        case 'y':
+            if (It->getPy() <= min)
+            {
+                min = It->getPy();
+            }
+            break;
+        case 'z':
+            if (It->getPz() <= min)
+            {
+                min = It->getPz();
+            }
+            break;
+        }
+    }
+    return min;
+}
+
+// Obtener el punto máximo de x, y o z
+int Objeto::Max(char p)
+{
+    int max = 0;
+    std::list<Vertice>::iterator It;
+    for (It = l_vertices.begin(); It != l_vertices.end(); It++)
+    {
+        switch (p)
+        {
+        case 'x':
+            if (It->getPx() >= max)
+            {
+                max = It->getPx();
+            }
+            break;
+        case 'y':
+            if (It->getPy() >= max)
+            {
+                max = It->getPy();
+            }
+            break;
+        case 'z':
+            if (It->getPz() >= max)
+            {
+                max = It->getPz();
+            }
+            break;
+        }
+    }
+    return max;
 }

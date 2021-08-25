@@ -12,6 +12,7 @@ int main()
     cout << "------------------" << endl;
     cout << "    Bienvenido" << endl;
     cout << "------------------" << endl;
+    //hice pruebas solo con este objeto... si no lo necesita, quitelo
     Vertice v_0, v_1, v_2, v_3;
     v_0.setIndice(0);
     v_0.setPx(0);
@@ -64,6 +65,8 @@ int main()
     {
         cout << "Error objeto"<<endl;
     }
+    cout << o_0.getNombre()<< endl;
+    //Finaliza la prueba
     while (1)
     {
         char **parametros;
@@ -124,8 +127,15 @@ int main()
         {
             if (cant == 0)
             {
-                cout << "Ningun objeto en memoria" << endl;
-                cout << "Comando exitoso" << endl;
+                if(sys.tamLObjetos()==0)
+                {
+                    cout << "Ningun objeto en memoria" << endl;
+                }
+                else
+                {
+                    sys.envolvente();
+                    cout << endl << "Comando exitoso" << endl;
+                }
             }
             if (cant == 1)
             {

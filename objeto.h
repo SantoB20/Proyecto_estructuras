@@ -5,6 +5,7 @@
 #include <string>
 #include "vertice.h"
 #include "cara.h"
+#include <iostream>
 
 class Objeto{
     private:
@@ -19,6 +20,8 @@ class Objeto{
         unsigned int tamLCaras();
         bool agregarVertice(Vertice v);
         bool agregarCara(Cara c);
+        int Min(char coordenada);
+        int Max(char coordenada);
 };
 
 #endif //_OBJETO_H_

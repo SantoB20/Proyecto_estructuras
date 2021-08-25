@@ -9,6 +9,7 @@ class Vertice{
         int pz;
     public:
         Vertice();
+        Vertice(unsigned int ind, int x, int y, int z);
         void setIndice(unsigned int ind);
         void setPx(int x);
         void setPy(int y);
@@ -17,7 +18,6 @@ class Vertice{
         int getPx();
         int getPy();
         int getPz();
-
 };
 
 #endif //_VERTICE_H_
