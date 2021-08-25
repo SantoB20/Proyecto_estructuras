@@ -18,6 +18,7 @@ class Caja{
         int zMax;
         std::list<Objeto> l_objetos;
         std::list<Vertice> l_vertices;
+        std::list<Cara> l_caras;
     public:
         Caja();
         void setxMin(int xMin);
@@ -35,12 +36,13 @@ class Caja{
         void setNombre(std::string nom);
         std::string getNombre();
         int tamLObjetos();
-        void insertCajas(std::list<Objeto> obj);
+        void insertObj(Objeto obj);
+        void insertObjs(std::list<Objeto> obj);
         void calcMin(char coordenada);
         void calcMax(char coordenada);
         void calcularVertices();
         void crearVertices();
-        void Impv();
+        void crearCaras();
 };
 
 #endif //_CAJA_H_

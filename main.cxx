@@ -134,7 +134,7 @@ int main()
                 }
                 else
                 {
-                    sys.envolvente();
+                    sys.envolvente("Todos");
                 }
             }
             if (cant == 1)
@@ -142,8 +142,14 @@ int main()
                 if (atoi(parametros[0]) == 0)
                 {
                     string NomObjt = parametros[0];
-                    cout << "Nombre del objeto" << NomObjt << endl;
-                    cout << "Comando exitoso" << endl;
+                    if(!sys.buscarObjeto(NomObjt))
+                    {
+                        cout << NomObjt << " no esta cargado en memoria" << endl;
+                    }
+                    else
+                    {
+                        sys.envolvente(NomObjt);
+                    }
                 }
                 else
                 {

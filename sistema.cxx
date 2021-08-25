@@ -70,19 +70,34 @@ bool Sistema::buscarObjeto(std::string nom)
     return false;
 }
 //Crea una caja envolvente, agregando todos los objetos de memoria, y generando los vertices que la forman
-void Sistema::envolvente()
+void Sistema::envolvente(std::string nom)
 {
     Caja caja;
-    caja.insertCajas(l_objetos);
-    l_objetos.clear();
+    if(nom == "Todos")
+    {
+        caja.insertObjs(l_objetos);
+        l_objetos.clear();
+    }
+    else
+    {
+        Objeto aux;
+        std::list<Objeto>::iterator It;
+        std::list<Objeto>::iterator aux2;
+        for(It=l_objetos.begin();It!=l_objetos.end();It++)
+        {
+            if(It->getNombre()==nom)
+            {
+                aux= *It;
+                aux2 = It;
+            }
+        }
+        caja.insertObj(aux);
+        l_objetos.erase(aux2);
+    }
     caja.calcularVertices();
     caja.crearVertices();
+    caja.crearCaras();
     caja.setNombre("caja_" + std::to_string(l_cajas.size()));
-    std::cout << std::endl
-              << caja.tamLObjetos() << " objeto dentro de la caja" << std::endl;
-    std::cout << std::endl
-              << "Vertices: " << std::endl;
-    caja.Impv();
     std::cout << std::endl
               << "Agregada la caja envolvente " << caja.getNombre() << " exitosamente" << std::endl;
     l_cajas.push_back(caja);

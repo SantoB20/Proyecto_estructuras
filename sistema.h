@@ -17,7 +17,7 @@ class Sistema{
         void listar();
         bool agregarObjeto(Objeto o);
         bool buscarObjeto(std::string nom);
-        void envolvente();
+        void envolvente(std::string nom);
         void guardar(std::string nom, std::string arch);
 };
 

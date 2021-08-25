@@ -79,73 +79,78 @@ int Caja::tamLObjetos()
 {
     return l_objetos.size();
 }
+//Inserta el objeto obj en l_objetos
+void Caja::insertObj(Objeto obj)
+{
+    l_objetos.push_back(obj);
+}
 //Inserta los objetos de memoria en l_objetos
-void Caja::insertCajas(std::list<Objeto> obj)
+void Caja::insertObjs(std::list<Objeto> obj)
 {
     l_objetos.insert(l_objetos.end(), obj.begin(), obj.end());
 }
 void Caja::calcMin(char coordenada)
 {
-    int min=0;
+    int min = 0;
     std::list<Objeto>::iterator It;
     for (It = l_objetos.begin(); It != l_objetos.end(); It++)
     {
-            switch (coordenada)
+        switch (coordenada)
+        {
+        case 'x':
+            if (It->Min('x') <= min)
             {
-            case 'x':
-                if (It->Min('x') <= min)
-                {
-                    xMin = It->Min('x');
-                    min = It->Min('x');
-                }
-                break;
-            case 'y':
-                if (It->Min('y') <= min)
-                {
-                    yMin=It->Min('y');
-                    min = It->Min('y');
-                }
-                break;
-            case 'z':
-                if (It->Min('z') <= min)
-                {
-                    zMin = It->Min('z');
-                    min = It->Min('z');
-                }
-                break;
+                xMin = It->Min('x');
+                min = It->Min('x');
             }
+            break;
+        case 'y':
+            if (It->Min('y') <= min)
+            {
+                yMin = It->Min('y');
+                min = It->Min('y');
+            }
+            break;
+        case 'z':
+            if (It->Min('z') <= min)
+            {
+                zMin = It->Min('z');
+                min = It->Min('z');
+            }
+            break;
+        }
     }
 }
 void Caja::calcMax(char coordenada)
 {
-    int max=0;
+    int max = 0;
     std::list<Objeto>::iterator It;
     for (It = l_objetos.begin(); It != l_objetos.end(); It++)
     {
-            switch (coordenada)
+        switch (coordenada)
+        {
+        case 'x':
+            if (It->Max('x') >= max)
             {
-            case 'x':
-                if (It->Max('x') >= max)
-                {
-                    xMax = It->Max('x');
-                    max = It->Max('x');
-                }
-                break;
-            case 'y':
-                if (It->Max('y') >= max)
-                {
-                    yMax = It->Max('y');
-                    max = It->Max('y');
-                }
-                break;
-            case 'z':
-                if (It->Max('z') >= max)
-                {
-                    zMax = It->Max('z');
-                    max = It->Max('z');
-                }
-                break;
+                xMax = It->Max('x');
+                max = It->Max('x');
             }
+            break;
+        case 'y':
+            if (It->Max('y') >= max)
+            {
+                yMax = It->Max('y');
+                max = It->Max('y');
+            }
+            break;
+        case 'z':
+            if (It->Max('z') >= max)
+            {
+                zMax = It->Max('z');
+                max = It->Max('z');
+            }
+            break;
+        }
     }
 }
 //Invoca todas las funciones que calculan los minimos y maximos de la caja
@@ -161,20 +166,65 @@ void Caja::calcularVertices()
 //crea los vertices que forman la caja envolvente, a partir de xMin, yMin, zMin, xMax, yMax y zMax
 void Caja::crearVertices()
 {
-    l_vertices.push_back(Vertice(0,xMin,yMin,zMin));
-    l_vertices.push_back(Vertice(1,xMax,yMin,zMin));
-    l_vertices.push_back(Vertice(2,xMin,yMax,zMin));
-    l_vertices.push_back(Vertice(3,xMax,yMax,zMin));
-    l_vertices.push_back(Vertice(4,xMin,yMin,zMax));
-    l_vertices.push_back(Vertice(5,xMax,yMin,zMax));
-    l_vertices.push_back(Vertice(6,xMin,yMax,zMax));
-    l_vertices.push_back(Vertice(7,xMax,yMax,zMax));
+    l_vertices.push_back(Vertice(0, xMin, yMin, zMin));
+    l_vertices.push_back(Vertice(1, xMax, yMin, zMin));
+    l_vertices.push_back(Vertice(2, xMin, yMax, zMin));
+    l_vertices.push_back(Vertice(3, xMax, yMax, zMin));
+    l_vertices.push_back(Vertice(4, xMin, yMin, zMax));
+    l_vertices.push_back(Vertice(5, xMax, yMin, zMax));
+    l_vertices.push_back(Vertice(6, xMin, yMax, zMax));
+    l_vertices.push_back(Vertice(7, xMax, yMax, zMax));
 }
-void Caja::Impv()
+//crea las caras que forman la caja envolvente, a partir de los vertices ya creados
+void Caja::crearCaras()
 {
     std::list<Vertice>::iterator It;
-    for(It=l_vertices.begin();It!=l_vertices.end();It++)
+    for (int i = 0; i < 6; i++)
     {
-        std::cout << It->getIndice() << " x: " << It->getPx() << " y: " << It->getPy() << " z: " << It->getPz() << std::endl;
+        Cara aux;
+        for (It = l_vertices.begin(); It != l_vertices.end(); It++)
+        {
+            switch (i)
+            {
+            case 0:
+                if (It->getIndice() == 0 || It->getIndice() == 1 || It->getIndice() == 2 || It->getIndice() == 3)
+                {
+                    aux.agregarIndice(It->getIndice());
+                }
+                break;
+            case 1:
+                if (It->getIndice() == 4 || It->getIndice() == 5 || It->getIndice() == 6 || It->getIndice() == 7)
+                {
+                    aux.agregarIndice(It->getIndice());
+                }
+                break;
+            case 2:
+                if (It->getIndice() == 0 || It->getIndice() == 1 || It->getIndice() == 4 || It->getIndice() == 5)
+                {
+                    aux.agregarIndice(It->getIndice());
+                }
+                break;
+            case 3:
+                if (It->getIndice() == 1 || It->getIndice() == 3 || It->getIndice() == 5 || It->getIndice() == 7)
+                {
+                    aux.agregarIndice(It->getIndice());
+                }
+                break;
+            case 4:
+                if (It->getIndice() == 2 || It->getIndice() == 3 || It->getIndice() == 6 || It->getIndice() == 7)
+                {
+                    aux.agregarIndice(It->getIndice());
+                }
+                break;
+            case 5:
+                if (It->getIndice() == 0 || It->getIndice() == 2 || It->getIndice() == 4 || It->getIndice() == 6)
+                {
+                    aux.agregarIndice(It->getIndice());
+                }
+                break;
+            }
+        }
+        aux.setTam(4);
+        l_caras.push_back(aux);
     }
 }
