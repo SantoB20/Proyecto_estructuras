@@ -71,7 +71,7 @@ bool Objeto::agregarCara(Cara c)
         return true;
     }
 }
-// Obtener el punto mínimo de x, y o z, segun
+// obtiene el punto mínimo de x, y o z, segun el indicado por coordenada
 int Objeto::Min(char coordenada)
 {
     int min = 0;
@@ -103,7 +103,7 @@ int Objeto::Min(char coordenada)
     return min;
 }
 
-// Obtener el punto máximo de x, y o z
+// obtiene el punto máximo de x, y o z, segun el indicado por coordenada
 int Objeto::Max(char p)
 {
     int max = 0;
@@ -133,4 +133,33 @@ int Objeto::Max(char p)
         }
     }
     return max;
+}
+//retorna en una linea de string de px, py, pz del vertice en la posicion pos, en l_objetos
+std::string Objeto::infoVertice(int pos)
+{
+    std::string linea;
+    std::list<Vertice>::iterator It = l_vertices.begin();
+    for (int i = 0; i < pos; i++)
+    {
+        It++;
+    }
+    linea= std::to_string(It->getPx()) + " " + std::to_string(It->getPy()) + " " + std::to_string(It->getPz());
+    return linea;
+}
+//retorna una linea de string de el tamaño y los indices de la cara en la posicion pos, en l_caras
+std::string Objeto::infoCara(int pos)
+{
+    std::string linea;
+    std::list<Cara>::iterator It = l_caras.begin();
+    for (int i = 0; i < pos; i++)
+    {
+        It++;
+    }
+    linea= std::to_string(It->getTam());
+    std::vector<unsigned int> indices = It->getIndices();
+    for (int i = 0; i < indices.size(); i++)
+    {
+        linea.append(" " + std::to_string(indices[i]));
+    }
+    return linea;
 }

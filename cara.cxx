@@ -8,7 +8,7 @@ Cara::Cara()
 //fijar tamaño
 void Cara::setTam(unsigned int tam)
 {
-    this->tam;
+    this->tam=tam;
 }
 //obtener tamaño
 unsigned int Cara::getTam()

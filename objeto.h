@@ -22,6 +22,8 @@ class Objeto{
         bool agregarCara(Cara c);
         int Min(char coordenada);
         int Max(char coordenada);
+        std::string infoVertice(int pos);
+        std::string infoCara(int pos);
 };
 
 #endif //_OBJETO_H_

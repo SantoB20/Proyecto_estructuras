@@ -41,31 +41,31 @@ int main()
     c_1.agregarIndice(v_3.getIndice());
     Objeto o_0;
     o_0.setNombre("objeto_0");
-    if(o_0.agregarVertice(v_0) && o_0.agregarVertice(v_1) && o_0.agregarVertice(v_2) && o_0.agregarVertice(v_3))
+    if (o_0.agregarVertice(v_0) && o_0.agregarVertice(v_1) && o_0.agregarVertice(v_2) && o_0.agregarVertice(v_3))
     {
-        cout << "Bien vertices"<<endl;
-        if(o_0.agregarCara(c_0) && o_0.agregarCara(c_1))
+        cout << "Bien vertices" << endl;
+        if (o_0.agregarCara(c_0) && o_0.agregarCara(c_1))
         {
-            cout << "Bien caras"<<endl;
+            cout << "Bien caras" << endl;
         }
         else
         {
-            cout << "error caras"<<endl;
+            cout << "error caras" << endl;
         }
     }
     else
     {
-        cout << "Error vertices"<<endl;
+        cout << "Error vertices" << endl;
     }
-    if(sys.agregarObjeto(o_0))
+    if (sys.agregarObjeto(o_0))
     {
-        cout << "Bien objeto"<< endl;
+        cout << "Bien objeto" << endl;
     }
     else
     {
-        cout << "Error objeto"<<endl;
+        cout << "Error objeto" << endl;
     }
-    cout << o_0.getNombre()<< endl;
+    cout << o_0.getNombre() << endl;
     //Finaliza la prueba
     while (1)
     {
@@ -114,27 +114,27 @@ int main()
         }
         else if (strcmp(opcion, "listado") == 0)
         {
-            if(sys.tamLObjetos()==0)
+            if (sys.tamLObjetos() == 0)
             {
-                cout << "Memoria vacia" << endl;
+                cout << endl
+                     << "Memoria vacia" << endl;
             }
             else
             {
                 sys.listar();
-            }  
+            }
         }
         else if (strcmp(opcion, "envolvente") == 0)
         {
             if (cant == 0)
             {
-                if(sys.tamLObjetos()==0)
+                if (sys.tamLObjetos() == 0)
                 {
                     cout << "Ningun objeto en memoria" << endl;
                 }
                 else
                 {
                     sys.envolvente();
-                    cout << endl << "Comando exitoso" << endl;
                 }
             }
             if (cant == 1)
@@ -195,10 +195,16 @@ int main()
                 {
                     string NomObjt = parametros[0];
                     string NomArch = parametros[1];
-
-                    cout << "Nombre del objeto" << NomObjt << endl;
-                    cout << "Nombre del archivo" << NomArch << endl;
-                    cout << "Comando exitoso" << endl;
+                    if (!sys.buscarObjeto(NomObjt))
+                    {
+                        cout << "El objeto indicado no esta cargado en memoria" << endl;
+                    }
+                    else
+                    {
+                        sys.guardar(NomObjt, NomArch);
+                        cout << endl
+                             << "Comando exitoso" << endl;
+                    }
                 }
                 else
                 {

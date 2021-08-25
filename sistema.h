@@ -1,9 +1,11 @@
 #ifndef _SISTEMA_H_
 #define _SISTEMA_H_
 
+#include <iostream>
 #include <list>
 #include "objeto.h"
 #include "caja.h"
+#include <fstream>
 
 class Sistema{
     private:
@@ -14,7 +16,9 @@ class Sistema{
         unsigned int tamLCajas();
         void listar();
         bool agregarObjeto(Objeto o);
-        bool envolvente();
+        bool buscarObjeto(std::string nom);
+        void envolvente();
+        void guardar(std::string nom, std::string arch);
 };
 
 #endif //_SISTEMA_H_

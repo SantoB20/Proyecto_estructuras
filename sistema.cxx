@@ -1,4 +1,3 @@
-#include <iostream>
 #include "sistema.h"
 
 //Retorna el tamaño de l_objetos
@@ -16,20 +15,24 @@ void Sistema::listar()
 {
     if (l_objetos.size() == 1)
     {
-        std::cout << "Hay " << l_objetos.size() << " objeto en memoria" << std::endl;
+        std::cout << std::endl
+                  << "Hay " << l_objetos.size() << " objeto en memoria" << std::endl;
     }
     else
     {
-        std::cout << "Hay " << l_objetos.size() << " objetos en memoria" << std::endl;
+        std::cout << std::endl
+                  << "Hay " << l_objetos.size() << " objetos en memoria" << std::endl;
     }
     std::list<Objeto>::iterator It;
     for (It = l_objetos.begin(); It != l_objetos.end(); It++)
     {
-        std::cout << It->getNombre() << " tiene: ";
+        std::cout << std::endl
+                  << It->getNombre() << " tiene: ";
         std::cout << It->tamLVertices() << " vertices, ";
         std::cout << It->tamLVertices() / 2 << " aristas y ";
         std::cout << It->tamLCaras() << " caras" << std::endl;
     }
+    std::cout << std::endl;
 }
 //Agrega o a l_objetos
 bool Sistema::agregarObjeto(Objeto o)
@@ -53,27 +56,67 @@ bool Sistema::agregarObjeto(Objeto o)
         return true;
     }
 }
-//Crea una caja envolvente, agregando todos los objetos de memoria, y generando los vertices que la forman
-bool Sistema::envolvente()
+//Revisa si existe el objeto en l_objetos, mediante el nombre indicado nom
+bool Sistema::buscarObjeto(std::string nom)
 {
-    if (l_objetos.size() == 0)
+    std::list<Objeto>::iterator It;
+    for (It = l_objetos.begin(); It != l_objetos.end(); It++)
     {
-        return false;
+        if (It->getNombre() == nom)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+//Crea una caja envolvente, agregando todos los objetos de memoria, y generando los vertices que la forman
+void Sistema::envolvente()
+{
+    Caja caja;
+    caja.insertCajas(l_objetos);
+    l_objetos.clear();
+    caja.calcularVertices();
+    caja.crearVertices();
+    caja.setNombre("caja_" + std::to_string(l_cajas.size()));
+    std::cout << std::endl
+              << caja.tamLObjetos() << " objeto dentro de la caja" << std::endl;
+    std::cout << std::endl
+              << "Vertices: " << std::endl;
+    caja.Impv();
+    std::cout << std::endl
+              << "Agregada la caja envolvente " << caja.getNombre() << " exitosamente" << std::endl;
+    l_cajas.push_back(caja);
+    std::cout << std::endl;
+}
+void Sistema::guardar(std::string nom, std::string arch)
+{
+    std::fstream file(arch, std::ios::app);
+    if (!file.is_open())
+    {
+        std::cout << "El archivo indicado no existe o es erroneo el nombre" << std::endl;
     }
     else
     {
-        Caja caja;
-        caja.insertCajas(l_objetos);
-        l_objetos.clear();
-        caja.calcularVertices();
-        caja.crearVertices();
-        std::string nom= "caja_";
-        caja.setNombre(nom+std::to_string(l_cajas.size()));
-        std::cout << std::endl << caja.tamLObjetos() << " objeto dentro de la caja" << std::endl;
-        std::cout << std::endl<< "Vertices: " << std::endl;
-        caja.Impv();
-        std::cout << std::endl<<"Agregada la caja envolvente " << caja.getNombre() << " exitosamente"<<std::endl;
-        l_cajas.push_back(caja);
-        return true;
+        Objeto obj;
+        std::list<Objeto>::iterator It;
+        for (It = l_objetos.begin(); It != l_objetos.end(); It++)
+        {
+            if (It->getNombre() == nom)
+            {
+                obj = *It;
+            }
+        }
+        file << obj.getNombre() << std::endl;
+        file << obj.tamLVertices() << std::endl;
+        for (int i = 0; i < obj.tamLVertices(); i++)
+        {
+            file << obj.infoVertice(i) << std::endl;
+        }
+        for (int i = 0; i < obj.tamLCaras(); i++)
+        {
+            file << obj.infoCara(i) << std::endl;
+        }
+        file << "-1" << std::endl;
+        file.close();
     }
 }
