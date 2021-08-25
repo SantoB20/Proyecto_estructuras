@@ -29,7 +29,7 @@ void Sistema::listar()
         std::cout << std::endl
                   << It->getNombre() << " tiene: ";
         std::cout << It->tamLVertices() << " vertices, ";
-        std::cout << It->tamLVertices() / 2 << " aristas y ";
+        std::cout << It->tamLVertices() + It->tamLCaras() / 2 << " aristas y ";
         std::cout << It->tamLCaras() << " caras" << std::endl;
     }
     std::cout << std::endl;
