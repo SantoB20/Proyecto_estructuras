@@ -69,6 +69,78 @@ bool Sistema::buscarObjeto(std::string nom)
     }
     return false;
 }
+
+//Carga el objeto del archivo en la memoria
+void Sistema::cargar(std::string arch)
+{
+   
+   std::ifstream archivo(arch, std::ios::in);
+   int tamC,tamV;
+   int val = 0;
+   Objeto obj;
+   Vertice ver;
+   Cara car;
+   std::string nomM;
+   int cont=1;
+
+   if(!archivo.is_open())
+   {
+       std::cout<<"El archivo no existe o es ilegible."<< std::endl;
+   }
+   else
+   {
+     archivo >> nomM >>tamV;
+      if(buscarObjeto(nomM))
+        {
+           std::cout<< "El objeto ya existe"<<std::endl;
+           archivo.close();
+        }
+        else
+            {
+             obj.setNombre(nomM);
+             for (int j = 0; j <  tamV ; j++)
+               {
+                
+                ver.setIndice(j);
+                
+                ver.setPx(val);
+                archivo>>val;
+                
+                ver.setPy(val);
+                archivo>>val; 
+                
+                ver.setPz(val);
+                archivo>>val;
+                
+                obj.agregarVertice(ver);
+                
+              
+               }
+                  
+               archivo>>val;                   
+               while(val != -1)
+                {
+                  tamC=val;
+                  car.setTam(cont);
+
+                  for(int i = 0 ; i<tamC; i++)
+                  {
+                      car.agregarIndice(ver.getIndice());
+                      archivo>>val;
+
+                  }
+                  obj.agregarCara(car);
+                  archivo>>val;
+                  cont++;
+                 }
+                
+              agregarObjeto(obj);
+       }
+              std::cout<<"El objeto "<< obj.getNombre()<< " ha sido cargado exitosamente del archivo "<< arch<< std::endl;
+      
+               archivo.close();
+   } 
+}
 //Crea una caja envolvente, agregando todos los objetos de memoria, y generando los vertices que la forman
 void Sistema::envolvente(std::string nom)
 {
@@ -103,6 +175,25 @@ void Sistema::envolvente(std::string nom)
     l_cajas.push_back(caja);
     std::cout << std::endl;
 }
+// Decarga el objeto de la memoria
+bool Sistema::descargar(std::string nom)
+{
+        Objeto obj;
+        std::list<Objeto>::iterator It;
+        for (It = l_objetos.begin(); It != l_objetos.end(); It++)
+        {
+            if (It->getNombre() == nom)
+            {
+                l_objetos.erase(It);
+                std::cout<<"El objeto "<< obj.getNombre()<< " ha sido eliminado de la memoria de trabajo "<< std::endl;
+                return true;
+            }
+        }
+        std::cout<<"El objeto "<< nom<< " no ha sido cargado en memoria"<<std::endl;
+        return false;
+        
+}
+
 void Sistema::guardar(std::string nom, std::string arch)
 {
     std::fstream file(arch, std::ios::app);
