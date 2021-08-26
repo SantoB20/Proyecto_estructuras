@@ -56,7 +56,7 @@ bool Sistema::agregarObjeto(Objeto o)
         return true;
     }
 }
-//Revisa si existe el objeto en l_objetos, mediante el nombre indicado nom
+//Revisa si existe el objeto con nombre nom, en l_objetos
 bool Sistema::buscarObjeto(std::string nom)
 {
     std::list<Objeto>::iterator It;
@@ -69,8 +69,7 @@ bool Sistema::buscarObjeto(std::string nom)
     }
     return false;
 }
-
-//Carga el objeto del archivo en la memoria
+//Carga el objeto del archivo arch, en la memoria
 void Sistema::cargar(std::string arch)
 {
    
@@ -193,7 +192,7 @@ bool Sistema::descargar(std::string nom)
         return false;
         
 }
-
+//El objeto con nombre nom es guardado en e larchivo arch
 void Sistema::guardar(std::string nom, std::string arch)
 {
     std::fstream file(arch, std::ios::app);

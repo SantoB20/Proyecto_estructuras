@@ -12,7 +12,6 @@ int main()
     cout << "------------------" << endl;
     cout << "    Bienvenido" << endl;
     cout << "------------------" << endl;
-    //Finaliza la prueba
     while (1)
     {
         char **parametros;
@@ -45,8 +44,6 @@ int main()
                 if (atoi(parametros[0]) == 0)
                 {
                     string arch = parametros[0];
-                   // cout << "Nombre del archivo: " << arch << endl;
-                  //  cout << "Comando exitoso" << endl;
                     sys.cargar(arch);
                 }
                 else
@@ -89,13 +86,20 @@ int main()
                 if (atoi(parametros[0]) == 0)
                 {
                     string NomObjt = parametros[0];
-                    if(!sys.buscarObjeto(NomObjt))
+                    if (sys.tamLObjetos() == 0)
                     {
-                        cout << NomObjt << " no esta cargado en memoria" << endl;
+                        cout << "Ningun objeto en memoria" << endl;
                     }
                     else
                     {
-                        sys.envolvente(NomObjt);
+                        if (!sys.buscarObjeto(NomObjt))
+                        {
+                            cout << NomObjt << " no esta cargado en memoria" << endl;
+                        }
+                        else
+                        {
+                            sys.envolvente(NomObjt);
+                        }
                     }
                 }
                 else
@@ -115,9 +119,7 @@ int main()
                 if (atoi(parametros[0]) == 0)
                 {
                     string NomObjt = parametros[0];
-                   // cout << "Nombre del objeto: " << NomObjt << endl;
-                   // cout << "Comando exitoso" << endl;
-                   sys.descargar(NomObjt);
+                    sys.descargar(NomObjt);
                 }
                 else
                 {
@@ -149,15 +151,22 @@ int main()
                 {
                     string NomObjt = parametros[0];
                     string NomArch = parametros[1];
-                    if (!sys.buscarObjeto(NomObjt))
+                    if (sys.tamLObjetos() == 0)
                     {
-                        cout << "El objeto indicado no esta cargado en memoria" << endl;
+                        cout << " No hay objetos en memoria" << endl;
                     }
                     else
                     {
-                        sys.guardar(NomObjt, NomArch);
-                        cout << endl
-                             << "Comando exitoso" << endl;
+                        if (!sys.buscarObjeto(NomObjt))
+                        {
+                            cout << "El objeto indicado no esta cargado en memoria" << endl;
+                        }
+                        else
+                        {
+                            sys.guardar(NomObjt, NomArch);
+                            cout << endl
+                                 << "Comando exitoso" << endl;
+                        }
                     }
                 }
                 else
