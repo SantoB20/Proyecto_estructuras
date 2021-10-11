@@ -151,7 +151,7 @@ int main()
                 {
                     string NomObjt = parametros[0];
                     string NomArch = parametros[1];
-                    if (sys.tamLObjetos() == 0)
+                    if (sys.tamLObjetos() + sys.tamLCajas() == 0)
                     {
                         cout << " No hay objetos en memoria" << endl;
                     }
@@ -194,23 +194,41 @@ int main()
             {
                 if (cant == 4 && atoi(parametros[0]) != 0 && atoi(parametros[1]) != 0 && atoi(parametros[2]) != 0 && atoi(parametros[3]) == 0)
                 {
-                    int px = atoi(parametros[0]), py = atoi(parametros[1]), pz = atoi(parametros[2]);
+                    float px = atoi(parametros[0]), py = atoi(parametros[1]), pz = atoi(parametros[2]);
                     string nomobjt = parametros[3];
-                    cout << "Nombre del objeto: " << nomobjt << endl
-                         << "x: " << px << endl
-                         << "y: " << py << endl
-                         << "z: " << pz << endl;
-                    cout << "Comando exitoso" << endl;
+                    if (sys.tamLCajas() + sys.tamLObjetos() == 0)
+                    {
+                        cout << "No hay objetos en memoria" << endl;
+                    }
+                    else
+                    {
+                        if (!sys.buscarObjeto(nomobjt))
+                        {
+                            cout << "El objeto indicado no esta cargado en memoria" << endl;
+                        }
+                        else
+                        {
+                            sys.v_cercano(nomobjt,px,py,pz);
+                            cout << endl
+                                 << "Comando exitoso" << endl;
+                        }
+                    }
+
                 }
                 else
                 {
                     if (cant == 3 && atoi(parametros[0]) != 0 && atoi(parametros[1]) != 0 && atoi(parametros[2]) != 0)
                     {
-                        int px = atoi(parametros[0]), py = atoi(parametros[1]), pz = atoi(parametros[2]);
-                        cout << "x: " << px << endl
-                             << "y: " << py << endl
-                             << "z: " << pz << endl;
-                        cout << "Comando exitoso" << endl;
+                        float px = atoi(parametros[0]), py = atoi(parametros[1]), pz = atoi(parametros[2]);
+                        if (sys.tamLCajas() + sys.tamLObjetos() == 0)
+                        {
+                            cout << "No hay objetos en memoria" << endl;
+                        }
+                        else
+                        {
+                            sys.v_cercano("todos",px,py,pz);
+                        }
+
                     }
                     else
                     {

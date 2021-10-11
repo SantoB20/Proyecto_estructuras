@@ -37,6 +37,8 @@ public:
     int getzMax();
     void setNombre(std::string nom);
     std::string getNombre();
+    std::list<Objeto> getObjetos();
+    std::list<Vertice> getVertices();
     int tamLVertices();
     int tamLCaras();
     int tamLObjetos();

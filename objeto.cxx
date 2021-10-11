@@ -15,6 +15,11 @@ std::string Objeto::getNombre()
 {
     return nombre;
 }
+//retorna la lista de verices del objeto
+std::list<Vertice> Objeto::getVertices()
+{
+    return l_vertices;
+}
 //retorna el tamaño de l_vertices
 unsigned int Objeto::tamLVertices()
 {

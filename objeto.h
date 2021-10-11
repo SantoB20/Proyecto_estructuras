@@ -16,6 +16,7 @@ class Objeto{
         Objeto();
         void setNombre(std::string nom);
         std::string getNombre();
+        std::list<Vertice> getVertices();
         unsigned int tamLVertices();
         unsigned int tamLCaras();
         bool agregarVertice(Vertice v);

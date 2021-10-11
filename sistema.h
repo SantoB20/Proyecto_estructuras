@@ -6,6 +6,7 @@
 #include "objeto.h"
 #include "caja.h"
 #include <fstream>
+#include "ArbolKD.h"
 
 class Sistema{
     private:
@@ -21,6 +22,7 @@ class Sistema{
         void envolvente(std::string nom);
         bool descargar(std::string nom);
         void guardar(std::string nom, std::string arch);
+        void v_cercano(std::string nom, float x, float y, float z);
 };
 
 #endif //_SISTEMA_H_

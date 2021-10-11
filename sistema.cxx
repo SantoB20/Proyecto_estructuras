@@ -261,3 +261,59 @@ void Sistema::guardar(std::string nom, std::string arch)
         }
     }
 }
+void Sistema::v_cercano(std::string nom, float x, float y, float z)
+{
+    if(nom == "todos")
+    {
+
+    }
+    else
+    {
+        bool encontradoObj = false, encontradoCaj = false;
+        Objeto obj;
+        Caja caj;
+        std::list<Objeto>::iterator It;
+        for(It = l_objetos.begin(); It != l_objetos.end(); It++)
+        {
+            if(It->getNombre() == nom)
+            {
+                obj = *It;
+                encontradoObj = true;
+            }
+        }
+        std::list<Caja>::iterator It2;
+        for(It2 = l_cajas.begin(); It2 != l_cajas.end(); It2++)
+        {
+            if(It2->getNombre() == nom)
+            {
+                caj = *It2;
+                encontradoCaj = true;
+            }
+        }
+        if(encontradoObj)
+        {
+            ArbolKD arbol;
+            NodoKD *cercano;
+            std::list<Vertice> vertices = obj.getVertices();
+            std::list<Vertice>::iterator vert;
+            for(vert = vertices.begin(); vert != vertices.end(); vert++)
+            {
+                punto nodo;
+                nodo.indice = vert->getIndice();
+                nodo.x = vert->getPx();
+                nodo.y = vert->getPy();
+                nodo.z = vert->getPz();
+                arbol.insertar(nodo);
+            }
+            cercano = arbol.cercano(x,y,z);
+            float c1 = cercano->obtenerDato().x - x, c2 = cercano->obtenerDato().y - y, c3 = cercano->obtenerDato().z - z;
+            float distancia = sqrt(pow(c1,2)+pow(c2,2)+pow(c3,2));
+            std::cout << "El vertice mas cercano es el " << cercano->obtenerDato() << " con el indice " << cercano->obtenerDato().indice << " a una distancia de: " << distancia << std::endl;
+        }
+        if(encontradoCaj)
+        {
+            ArbolKD arbol;
+            std::list<Vertice> vertices = caj.getVertices();
+        }
+    }
+}
