@@ -8,7 +8,7 @@ Vertice::Vertice()
     py=0;
     pz=0;
 }
-Vertice::Vertice(unsigned int ind, int x, int y, int z)
+Vertice::Vertice(unsigned int ind, float x, float y, float z)
 {
     this->indice = ind;
     this->px=x;
@@ -21,17 +21,17 @@ void Vertice::setIndice(unsigned int ind)
     indice=ind;
 }
 //fijar ubicacion en x
-void Vertice::setPx(int x)
+void Vertice::setPx(float x)
 {
     px=x;
 }
 //fijar ubicacion en y     
-void Vertice::setPy(int y)
+void Vertice::setPy(float y)
 {
     py=y;
 }
 //fijar ubicacion en z    
-void Vertice::setPz(int z)
+void Vertice::setPz(float z)
 {
     pz=z;
 }

@@ -4,16 +4,16 @@
 class Vertice{
     private:
         unsigned int indice;
-        int px;
-        int py;
-        int pz;
+        float px;
+        float py;
+        float pz;
     public:
         Vertice();
-        Vertice(unsigned int ind, int x, int y, int z);
+        Vertice(unsigned int ind, float x, float y, float z);
         void setIndice(unsigned int ind);
-        void setPx(int x);
-        void setPy(int y);
-        void setPz(int z);
+        void setPx(float x);
+        void setPy(float y);
+        void setPz(float z);
         unsigned int getIndice();
         int getPx();
         int getPy();

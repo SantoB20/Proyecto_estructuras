@@ -134,7 +134,7 @@ int Objeto::Max(char p)
     }
     return max;
 }
-//retorna en una linea de string de px, py, pz del vertice en la posicion pos, en l_objetos
+//retorna en una linea de string de px, py, pz del vertice en la posicion pos, en l_vertices
 std::string Objeto::infoVertice(int pos)
 {
     std::string linea;

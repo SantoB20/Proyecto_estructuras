@@ -13,7 +13,7 @@ unsigned int Sistema::tamLCajas()
 //Imprime la informacion de todos los objetos en memoria
 void Sistema::listar()
 {
-    if (l_objetos.size() == 1)
+    if (l_objetos.size() + l_cajas.size() == 1)
     {
         std::cout << std::endl
                   << "Hay " << l_objetos.size() << " objeto en memoria" << std::endl;
@@ -21,7 +21,7 @@ void Sistema::listar()
     else
     {
         std::cout << std::endl
-                  << "Hay " << l_objetos.size() << " objetos en memoria" << std::endl;
+                  << "Hay " << l_objetos.size() + l_cajas.size() << " objetos en memoria" << std::endl;
     }
     std::list<Objeto>::iterator It;
     for (It = l_objetos.begin(); It != l_objetos.end(); It++)
@@ -29,8 +29,17 @@ void Sistema::listar()
         std::cout << std::endl
                   << It->getNombre() << " tiene: ";
         std::cout << It->tamLVertices() << " vertices, ";
-        std::cout << It->tamLVertices() + It->tamLCaras() / 2 << " aristas y ";
+        std::cout << It->tamLVertices() + It->tamLCaras() - 2 << " aristas y ";
         std::cout << It->tamLCaras() << " caras" << std::endl;
+    }
+    std::list<Caja>::iterator It2;
+    for (It2 = l_cajas.begin(); It2 != l_cajas.end(); It2++)
+    {
+        std::cout << std::endl
+                  << It2->getNombre() << " tiene: ";
+        std::cout << It2->tamLVertices() << " vertices, ";
+        std::cout << It2->tamLVertices() + It2->tamLCaras() - 2 << " aristas y ";
+        std::cout << It2->tamLCaras() << " caras" << std::endl;
     }
     std::cout << std::endl;
 }
@@ -67,103 +76,102 @@ bool Sistema::buscarObjeto(std::string nom)
             return true;
         }
     }
+    std::list<Caja>::iterator It2;
+    for(It2 = l_cajas.begin();It2 != l_cajas.end();It2++)
+    {
+        if(It2->getNombre() == nom)
+        {
+            return true;
+        }
+    }
     return false;
 }
 //Carga el objeto del archivo arch, en la memoria
 void Sistema::cargar(std::string arch)
 {
-   
-   std::ifstream archivo(arch, std::ios::in);
-   int tamC,tamV;
-   int val = 0;
-   Objeto obj;
-   Vertice ver;
-   Cara car;
-   std::string nomM;
-   int cont=1;
 
-   if(!archivo.is_open())
-   {
-       std::cout<<"El archivo no existe o es ilegible."<< std::endl;
-   }
-   else
-   {
-     archivo >> nomM >>tamV;
-      if(buscarObjeto(nomM))
+    std::ifstream archivo(arch, std::ios::in);
+    int tamV;
+    int val = 0;
+    Objeto obj;
+    Vertice ver;
+    std::string nomM;
+
+    if (!archivo.is_open())
+    {
+        std::cout << "El archivo no existe o es ilegible." << std::endl;
+    }
+    else
+    {
+        archivo >> nomM >> tamV;
+        if (buscarObjeto(nomM))
         {
-           std::cout<< "El objeto ya existe"<<std::endl;
-           archivo.close();
+            std::cout << "El objeto ya existe" << std::endl;
+            archivo.close();
         }
         else
+        {
+            obj.setNombre(nomM);
+            for (int j = 0; j < tamV; j++)
             {
-             obj.setNombre(nomM);
-             for (int j = 0; j <  tamV ; j++)
-               {
-                
+
                 ver.setIndice(j);
-                
+
+                archivo >> val;
                 ver.setPx(val);
-                archivo>>val;
-                
+
+                archivo >> val;
                 ver.setPy(val);
-                archivo>>val; 
-                
+
+                archivo >> val;
                 ver.setPz(val);
-                archivo>>val;
-                
+
                 obj.agregarVertice(ver);
-                
-              
-               }
-                  
-               archivo>>val;                   
-               while(val != -1)
+            }
+
+            archivo >> val;
+            while (val != -1)
+            {
+                Cara car;
+                car.setTam(val);
+                for (int i = 0; i < car.getTam(); i++)
                 {
-                  tamC=val;
-                  car.setTam(cont);
+                    archivo >> val;
+                    car.agregarIndice(val);
+                }
+                obj.agregarCara(car);
+                archivo >> val;
+            }
 
-                  for(int i = 0 ; i<tamC; i++)
-                  {
-                      car.agregarIndice(ver.getIndice());
-                      archivo>>val;
+            agregarObjeto(obj);
+        }
+        std::cout << "El objeto " << obj.getNombre() << " ha sido cargado exitosamente del archivo " << arch << std::endl;
 
-                  }
-                  obj.agregarCara(car);
-                  archivo>>val;
-                  cont++;
-                 }
-                
-              agregarObjeto(obj);
-       }
-              std::cout<<"El objeto "<< obj.getNombre()<< " ha sido cargado exitosamente del archivo "<< arch<< std::endl;
-      
-               archivo.close();
-   } 
+        archivo.close();
+    }
 }
 //Crea una caja envolvente, agregando todos los objetos de memoria, y generando los vertices que la forman
 void Sistema::envolvente(std::string nom)
 {
     Caja caja;
-    if(nom == "Todos")
+    if (nom == "Todos")
     {
         caja.insertObjs(l_objetos);
-        l_objetos.clear();
     }
     else
     {
         Objeto aux;
         std::list<Objeto>::iterator It;
         std::list<Objeto>::iterator aux2;
-        for(It=l_objetos.begin();It!=l_objetos.end();It++)
+        for (It = l_objetos.begin(); It != l_objetos.end(); It++)
         {
-            if(It->getNombre()==nom)
+            if (It->getNombre() == nom)
             {
-                aux= *It;
+                aux = *It;
                 aux2 = It;
             }
         }
         caja.insertObj(aux);
-        l_objetos.erase(aux2);
     }
     caja.calcularVertices();
     caja.crearVertices();
@@ -177,24 +185,24 @@ void Sistema::envolvente(std::string nom)
 // Decarga el objeto de la memoria
 bool Sistema::descargar(std::string nom)
 {
-        Objeto obj;
-        std::list<Objeto>::iterator It;
-        for (It = l_objetos.begin(); It != l_objetos.end(); It++)
+    Objeto obj;
+    std::list<Objeto>::iterator It;
+    for (It = l_objetos.begin(); It != l_objetos.end(); It++)
+    {
+        if (It->getNombre() == nom)
         {
-            if (It->getNombre() == nom)
-            {
-                l_objetos.erase(It);
-                std::cout<<"El objeto "<< obj.getNombre()<< " ha sido eliminado de la memoria de trabajo "<< std::endl;
-                return true;
-            }
+            l_objetos.erase(It);
+            std::cout << "El objeto " << obj.getNombre() << " ha sido eliminado de la memoria de trabajo " << std::endl;
+            return true;
         }
-        std::cout<<"El objeto "<< nom<< " no ha sido cargado en memoria"<<std::endl;
-        return false;
-        
+    }
+    std::cout << "El objeto " << nom << " no ha sido cargado en memoria" << std::endl;
+    return false;
 }
 //El objeto con nombre nom es guardado en e larchivo arch
 void Sistema::guardar(std::string nom, std::string arch)
 {
+    bool encontrado = false;
     std::fstream file(arch, std::ios::app);
     if (!file.is_open())
     {
@@ -209,19 +217,47 @@ void Sistema::guardar(std::string nom, std::string arch)
             if (It->getNombre() == nom)
             {
                 obj = *It;
+                encontrado = true;
             }
         }
-        file << obj.getNombre() << std::endl;
-        file << obj.tamLVertices() << std::endl;
-        for (int i = 0; i < obj.tamLVertices(); i++)
+        if (encontrado)
         {
-            file << obj.infoVertice(i) << std::endl;
+            file << obj.getNombre() << std::endl;
+            file << obj.tamLVertices() << std::endl;
+            for (int i = 0; i < obj.tamLVertices(); i++)
+            {
+                file << obj.infoVertice(i) << std::endl;
+            }
+            for (int i = 0; i < obj.tamLCaras(); i++)
+            {
+                file << obj.infoCara(i) << std::endl;
+            }
+            file << "-1" << std::endl;
+            file.close();
         }
-        for (int i = 0; i < obj.tamLCaras(); i++)
+        else
         {
-            file << obj.infoCara(i) << std::endl;
+            Caja caj;
+            std::list<Caja>::iterator It2;
+            for (It2 = l_cajas.begin(); It2 != l_cajas.end(); It2++)
+            {
+                if (It2->getNombre() == nom)
+                {
+                    caj = *It2;
+                }
+            }
+            file << caj.getNombre() << std::endl;
+            file << caj.tamLVertices() << std::endl;
+            for (int i = 0; i < caj.tamLVertices(); i++)
+            {
+                file << caj.infoVertice(i) << std::endl;
+            }
+            for (int i = 0; i < caj.tamLCaras(); i++)
+            {
+                file << caj.infoCara(i) << std::endl;
+            }
+            file << "-1" << std::endl;
+            file.close();
         }
-        file << "-1" << std::endl;
-        file.close();
     }
 }

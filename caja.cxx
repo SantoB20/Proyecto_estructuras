@@ -74,7 +74,17 @@ std::string Caja::getNombre()
 {
     return nombre;
 }
-//retorna el la cantidad deobjetos dentro de la caja
+//retorna la cantidad de vertices de la caja
+int Caja::tamLVertices()
+{
+    return l_vertices.size();
+}
+//retorn la cantidad de caras de la caja
+int Caja::tamLCaras()
+{
+    return l_caras.size();
+}
+//retorna la cantidad de objetos dentro de la caja
 int Caja::tamLObjetos()
 {
     return l_objetos.size();
@@ -227,4 +237,33 @@ void Caja::crearCaras()
         aux.setTam(4);
         l_caras.push_back(aux);
     }
+}
+//retorna en una linea de string de px, py, pz del vertice en la posicion pos, en l_vertices
+std::string Caja::infoVertice(int pos)
+{
+    std::string linea;
+    std::list<Vertice>::iterator It = l_vertices.begin();
+    for (int i = 0; i < pos; i++)
+    {
+        It++;
+    }
+    linea= std::to_string(It->getPx()) + " " + std::to_string(It->getPy()) + " " + std::to_string(It->getPz());
+    return linea;
+}
+//retorna una linea de string de el tamaño y los indices de la cara en la posicion pos, en l_caras
+std::string Caja::infoCara(int pos)
+{
+    std::string linea;
+    std::list<Cara>::iterator It = l_caras.begin();
+    for (int i = 0; i < pos; i++)
+    {
+        It++;
+    }
+    linea= std::to_string(It->getTam());
+    std::vector<unsigned int> indices = It->getIndices();
+    for (int i = 0; i < indices.size(); i++)
+    {
+        linea.append(" " + std::to_string(indices[i]));
+    }
+    return linea;
 }
