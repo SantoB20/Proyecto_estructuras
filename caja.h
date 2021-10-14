@@ -29,12 +29,12 @@ public:
     void setxMax(float xMax);
     void setyMax(float yMax);
     void setzMax(float zMax);
-    int getxMin();
-    int getyMin();
-    int getzMin();
-    int getxMax();
-    int getyMax();
-    int getzMax();
+    float getxMin();
+    float getyMin();
+    float getzMin();
+    float getxMax();
+    float getyMax();
+    float getzMax();
     void setNombre(std::string nom);
     std::string getNombre();
     std::list<Objeto> getObjetos();
