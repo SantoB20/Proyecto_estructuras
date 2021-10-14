@@ -21,8 +21,8 @@ class Objeto{
         unsigned int tamLCaras();
         bool agregarVertice(Vertice v);
         bool agregarCara(Cara c);
-        int Min(char coordenada);
-        int Max(char coordenada);
+        float Min(char coordenada);
+        float Max(char coordenada);
         std::string infoVertice(int pos);
         std::string infoCara(int pos);
 };
