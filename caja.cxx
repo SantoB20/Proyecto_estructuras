@@ -5,32 +5,32 @@ Caja::Caja()
 {
 }
 //fija punto x minimo de la caja
-void Caja::setxMin(int xMin)
+void Caja::setxMin(float xMin)
 {
     this->xMin = xMin;
 }
 //fija punto y minimo de la caja
-void Caja::setyMin(int yMin)
+void Caja::setyMin(float yMin)
 {
     this->yMin = yMin;
 }
 //fija punto z minimo de la caja
-void Caja::setzMin(int zMin)
+void Caja::setzMin(float zMin)
 {
     this->zMin = zMin;
 }
 //fija punto x maximo de la caja
-void Caja::setxMax(int xMax)
+void Caja::setxMax(float xMax)
 {
     this->xMax = xMax;
 }
 //fija punto y maximo de la caja
-void Caja::setyMax(int yMax)
+void Caja::setyMax(float yMax)
 {
     this->yMax = yMax;
 }
 //fija punto z maximo de la caja
-void Caja::setzMax(int zMax)
+void Caja::setzMax(float zMax)
 {
     this->zMax = zMax;
 }
