@@ -35,32 +35,32 @@ void Caja::setzMax(float zMax)
     this->zMax = zMax;
 }
 //obtiene punto x minimo de la caja
-int Caja::getxMin()
+float Caja::getxMin()
 {
     return xMin;
 }
 //obtiene punto y minimo de la caja
-int Caja::getyMin()
+float Caja::getyMin()
 {
     return yMin;
 }
 //obtiene punto z minimo de la caja
-int Caja::getzMin()
+float Caja::getzMin()
 {
     return zMin;
 }
 //obtiene punto x maximo de la caja
-int Caja::getxMax()
+float Caja::getxMax()
 {
     return xMax;
 }
 //obtiene punto y maximo de la caja
-int Caja::getyMax()
+float Caja::getyMax()
 {
     return yMax;
 }
 //obtiene punto z maximo de la caja
-int Caja::getzMax()
+float Caja::getzMax()
 {
     return zMax;
 }
@@ -111,7 +111,7 @@ void Caja::insertObjs(std::list<Objeto> obj)
 }
 void Caja::calcMin(char coordenada)
 {
-    int min = 0;
+    float min = 0;
     std::list<Objeto>::iterator It;
     for (It = l_objetos.begin(); It != l_objetos.end(); It++)
     {
@@ -143,7 +143,7 @@ void Caja::calcMin(char coordenada)
 }
 void Caja::calcMax(char coordenada)
 {
-    int max = 0;
+    float max = 0;
     std::list<Objeto>::iterator It;
     for (It = l_objetos.begin(); It != l_objetos.end(); It++)
     {
