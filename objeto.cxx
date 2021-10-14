@@ -77,9 +77,9 @@ bool Objeto::agregarCara(Cara c)
     }
 }
 // obtiene el punto mínimo de x, y o z, segun el indicado por coordenada
-int Objeto::Min(char coordenada)
+float Objeto::Min(char coordenada)
 {
-    int min = 0;
+    float min = 0;
     std::list<Vertice>::iterator It;
     for (It = l_vertices.begin(); It != l_vertices.end(); It++)
     {
@@ -109,9 +109,9 @@ int Objeto::Min(char coordenada)
 }
 
 // obtiene el punto máximo de x, y o z, segun el indicado por coordenada
-int Objeto::Max(char p)
+float Objeto::Max(char p)
 {
-    int max = 0;
+    float max = 0;
     std::list<Vertice>::iterator It;
     for (It = l_vertices.begin(); It != l_vertices.end(); It++)
     {
