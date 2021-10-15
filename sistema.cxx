@@ -92,7 +92,7 @@ void Sistema::cargar(std::string arch)
 
     std::ifstream archivo(arch, std::ios::in);
     int tamV;
-    int val = 0;
+    float val = 0;
     Objeto obj;
     Vertice ver;
     std::string nomM;
