@@ -90,27 +90,18 @@ void NodoKD::posOrden()
 }
 NodoKD* NodoKD::cercano(float x, float y, float z)
 {
-    float c1 = this->dato.x - x;
-    float c2 = this->dato.y - y;
-    float c3 = this->dato.z - z;
-    float distanciaRaiz = sqrt(pow(c1, 2) + pow(c2, 2) + pow(c3, 2));
+    float distanciaRaiz = sqrt(pow(this->dato.x - x, 2) + pow(this->dato.y - y, 2) + pow(this->dato.z - z, 2));
     float distanciaIzq = -1, distanciaDer = -1;
     NodoKD *hijo1, *hijo2;
     if (this->hijoIzq != NULL)
     {
         hijo1 = ((this->hijoIzq))->cercano(x, y, z);
-        c1 = hijo1->obtenerDato().x - x;
-        c2 = hijo1->obtenerDato().y - y;
-        c3 = hijo1->obtenerDato().z - z;
-        distanciaIzq = sqrt(pow(c1, 2) + pow(c2, 2) + pow(c3, 2));
+        distanciaIzq = sqrt(pow(hijo1->obtenerDato().x - x, 2) + pow(hijo1->obtenerDato().y - y, 2) + pow(hijo1->obtenerDato().z - z, 2));
     }
     if (this->hijoDer != NULL)
     {
         hijo2 = ((this->hijoDer))->cercano(x, y, z);
-        c1 = hijo2->obtenerDato().x - x;
-        c2 = hijo2->obtenerDato().y - y;
-        c3 = hijo2->obtenerDato().z - z;
-        distanciaDer = sqrt(pow(c1, 2) + pow(c2, 2) + pow(c3, 2));
+        distanciaDer = sqrt(pow(hijo2->obtenerDato().x - x, 2) + pow(hijo2->obtenerDato().y - y, 2) + pow(hijo2->obtenerDato().z - z, 2));
     }
     if (distanciaIzq != -1 && distanciaDer != -1)
     {
