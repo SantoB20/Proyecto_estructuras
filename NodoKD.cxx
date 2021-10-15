@@ -55,84 +55,87 @@ void NodoKD::fijarHijoDer(NodoKD *der)
 void NodoKD::preOrden()
 {
     std::cout << this->dato << " ";
-     if(this->hijoIzq != NULL)
+    if (this->hijoIzq != NULL)
     {
         (this->hijoIzq)->preOrden();
     }
-    if(this->hijoDer != NULL)
+    if (this->hijoDer != NULL)
     {
         (this->hijoDer)->preOrden();
-    }  
+    }
 }
 void NodoKD::inOrden()
 {
-    if(this->hijoIzq != NULL)
+    if (this->hijoIzq != NULL)
     {
         (this->hijoIzq)->inOrden();
     }
     std::cout << this->dato << " ";
-    if(this->hijoDer != NULL)
+    if (this->hijoDer != NULL)
     {
         (this->hijoDer)->inOrden();
-    }  
+    }
 }
 void NodoKD::posOrden()
 {
-    if(this->hijoIzq != NULL)
+    if (this->hijoIzq != NULL)
     {
         (this->hijoIzq)->posOrden();
     }
-    if(this->hijoDer != NULL)
-    {
-        (this->hijoDer)->posOrden();
-    } 
-    std::cout << this->dato << " ";
-}
-NodoKD* NodoKD::cercano(float x, float y, float z)
-{
-    float distanciaRaiz = sqrt(pow(this->dato.x - x, 2) + pow(this->dato.y - y, 2) + pow(this->dato.z - z, 2));
-    float distanciaIzq = -1, distanciaDer = -1;
-    NodoKD *hijo1, *hijo2;
-    if (this->hijoIzq != NULL)
-    {
-        hijo1 = ((this->hijoIzq))->cercano(x, y, z);
-        distanciaIzq = sqrt(pow(hijo1->obtenerDato().x - x, 2) + pow(hijo1->obtenerDato().y - y, 2) + pow(hijo1->obtenerDato().z - z, 2));
-    }
     if (this->hijoDer != NULL)
     {
-        hijo2 = ((this->hijoDer))->cercano(x, y, z);
-        distanciaDer = sqrt(pow(hijo2->obtenerDato().x - x, 2) + pow(hijo2->obtenerDato().y - y, 2) + pow(hijo2->obtenerDato().z - z, 2));
+        (this->hijoDer)->posOrden();
     }
-    if (distanciaIzq != -1 && distanciaDer != -1)
+    std::cout << this->dato << " ";
+}
+NodoKD *NodoKD::cercano(float x, float y, float z)
+{
+    float distanciaRaiz = sqrt(pow(this->dato.x - x, 2) + pow(this->dato.y - y, 2) + pow(this->dato.z - z, 2));
+    float distanciaIzq, distanciaDer;
+    NodoKD *hijo1, *hijo2;
+    if(!this->esHoja())
     {
-        if (distanciaIzq < distanciaDer && distanciaIzq < distanciaRaiz)
-            return hijo1;
-        if (distanciaDer < distanciaIzq && distanciaDer < distanciaRaiz)
-            return hijo2;
-        else
-            return this;
-    }
-    else
-    {
-        if (distanciaIzq != -1)
+        if(this->hijoIzq!= NULL && this->hijoDer == NULL)
         {
-            if (distanciaIzq < distanciaRaiz)
+            distanciaIzq = sqrt(pow((this->hijoIzq)->obtenerDato().x -x,2)+pow((this->hijoIzq)->obtenerDato().y -y,2)+pow((this->hijoIzq)->obtenerDato().z -z,2));
+            if(distanciaIzq<distanciaRaiz)
+            {
+                hijo1 = (this->hijoIzq)->cercano(x,y,z);
                 return hijo1;
+            }   
+            else
+                return this;
+        }
+        if(this->hijoIzq == NULL && this->hijoDer != NULL)
+        {
+            distanciaDer = sqrt(pow((this->hijoDer)->obtenerDato().x -x,2)+pow((this->hijoDer)->obtenerDato().y -y,2)+pow((this->hijoDer)->obtenerDato().z -z,2));
+            if(distanciaDer<distanciaRaiz)
+            {
+                hijo2 = (this->hijoDer)->cercano(x,y,z);
+                return hijo2;
+            }   
             else
                 return this;
         }
         else
         {
-            if (distanciaDer != -1)
+            distanciaIzq = sqrt(pow((this->hijoIzq)->obtenerDato().x -x,2)+pow((this->hijoIzq)->obtenerDato().y -y,2)+pow((this->hijoIzq)->obtenerDato().z -z,2));
+            distanciaDer = sqrt(pow((this->hijoDer)->obtenerDato().x -x,2)+pow((this->hijoDer)->obtenerDato().y -y,2)+pow((this->hijoDer)->obtenerDato().z -z,2));
+            if(distanciaIzq<distanciaDer && distanciaIzq < distanciaRaiz)
             {
-                if (distanciaDer < distanciaRaiz)
-                    return hijo2;
-                else
-                    return this;
+                hijo1 = (this->hijoIzq)->cercano(x,y,z);
+                return hijo1;
             }
             else
-                this;
+                if(distanciaDer<distanciaIzq && distanciaDer< distanciaRaiz)
+                {
+                    hijo2 = (this->hijoDer)->cercano(x,y,z);
+                    return hijo2;
+                }
+                else
+                    return this;
         }
     }
-    return this;
+    else
+        return this;
 }

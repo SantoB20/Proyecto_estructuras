@@ -196,48 +196,51 @@ void ArbolKD::nivelOrden()
 NodoKD *ArbolKD::cercano(float x, float y, float z)
 {
     float distanciaRaiz = sqrt(pow(((this->raiz))->obtenerDato().x - x, 2) + pow(((this->raiz))->obtenerDato().y - y, 2) + pow(((this->raiz))->obtenerDato().z - z, 2));
-    float distanciaIzq = -1, distanciaDer = -1;
-    NodoKD *hijo1, *hijo2, *menor;
-    if ((this->raiz)->obtenerHijoIzq() != NULL)
+    float distanciaIzq, distanciaDer;
+    NodoKD *hijo1, *hijo2;
+    if(!(this->raiz)->esHoja())
     {
-        hijo1 = ((this->raiz)->obtenerHijoIzq())->cercano(x, y, z);
-        distanciaIzq = sqrt(pow(hijo1->obtenerDato().x - x, 2) + pow(hijo1->obtenerDato().y - y, 2) + pow(hijo1->obtenerDato().z - z, 2));
-    }
-    if ((this->raiz)->obtenerHijoDer() != NULL)
-    {
-        hijo2 = ((this->raiz)->obtenerHijoDer())->cercano(x, y, z);
-        distanciaDer = sqrt(pow(hijo2->obtenerDato().x - x, 2) + pow(hijo2->obtenerDato().y - y, 2) + pow(hijo2->obtenerDato().z - z, 2));
-    }
-    if (distanciaIzq != -1 && distanciaDer != -1)
-    {
-        if (distanciaIzq < distanciaDer && distanciaIzq < distanciaRaiz)
-            return hijo1;
-        if (distanciaDer < distanciaIzq && distanciaDer < distanciaRaiz)
-            return hijo2;
-        else
-            return this->raiz;
-    }
-    else
-    {
-        if (distanciaIzq != -1)
+        if((this->raiz)->obtenerHijoIzq()!= NULL && (this->raiz)->obtenerHijoDer() == NULL)
         {
-            if (distanciaIzq < distanciaRaiz)
+            distanciaIzq = sqrt(pow(((this->raiz)->obtenerHijoIzq())->obtenerDato().x -x,2)+pow(((this->raiz)->obtenerHijoIzq())->obtenerDato().y -y,2)+pow(((this->raiz)->obtenerHijoIzq())->obtenerDato().z -z,2));
+            if(distanciaIzq<distanciaRaiz)
+            {
+                hijo1 = ((this->raiz)->obtenerHijoIzq())->cercano(x,y,z);
                 return hijo1;
+            }   
+            else
+                return this->raiz;
+        }
+        if((this->raiz)->obtenerHijoIzq() == NULL && (this->raiz)->obtenerHijoDer() != NULL)
+        {
+            distanciaDer = sqrt(pow(((this->raiz)->obtenerHijoDer())->obtenerDato().x -x,2)+pow(((this->raiz)->obtenerHijoDer())->obtenerDato().y -y,2)+pow(((this->raiz)->obtenerHijoDer())->obtenerDato().z -z,2));
+            if(distanciaDer<distanciaRaiz)
+            {
+                hijo2 = ((this->raiz)->obtenerHijoDer())->cercano(x,y,z);
+                return hijo2;
+            }   
             else
                 return this->raiz;
         }
         else
         {
-            if (distanciaDer != -1)
+            distanciaIzq = sqrt(pow(((this->raiz)->obtenerHijoIzq())->obtenerDato().x -x,2)+pow(((this->raiz)->obtenerHijoIzq())->obtenerDato().y -y,2)+pow(((this->raiz)->obtenerHijoIzq())->obtenerDato().z -z,2));
+            distanciaDer = sqrt(pow(((this->raiz)->obtenerHijoDer())->obtenerDato().x -x,2)+pow(((this->raiz)->obtenerHijoDer())->obtenerDato().y -y,2)+pow(((this->raiz)->obtenerHijoDer())->obtenerDato().z -z,2));
+            if(distanciaIzq<distanciaDer && distanciaIzq < distanciaRaiz)
             {
-                if (distanciaDer < distanciaRaiz)
-                    return hijo2;
-                else
-                    return this->raiz;
+                hijo1 = ((this->raiz)->obtenerHijoIzq())->cercano(x,y,z);
+                return hijo1;
             }
             else
-                this->raiz;
+                if(distanciaDer<distanciaIzq && distanciaDer< distanciaRaiz)
+                {
+                    hijo2 = ((this->raiz)->obtenerHijoDer())->cercano(x,y,z);
+                    return hijo2;
+                }
+                else
+                    return this->raiz;
         }
     }
-    return this->raiz;
+    else
+        return this->raiz;
 }
