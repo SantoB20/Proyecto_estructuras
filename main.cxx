@@ -252,8 +252,7 @@ int main()
                     if (cant == 1 && atoi(parametros[0]) == 0)
                     {
                         string NomObjt = parametros[0];
-                        cout << "Nombre del objeto: " << NomObjt << endl;
-                        cout << "Comando exitoso" << endl;
+                        sys.v_cercanos_caja(NomObjt);
                     }
                     else
                     {

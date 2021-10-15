@@ -1,16 +1,16 @@
 #include "sistema.h"
 
-//Retorna el tamaño de l_objetos
+// Retorna el tamaño de l_objetos
 unsigned int Sistema::tamLObjetos()
 {
     return l_objetos.size();
 }
-//Retorna el tamaño de l_cajas
+// Retorna el tamaño de l_cajas
 unsigned int Sistema::tamLCajas()
 {
     return l_cajas.size();
 }
-//Imprime la informacion de todos los objetos en memoria
+// Imprime la informacion de todos los objetos en memoria
 void Sistema::listar()
 {
     if (l_objetos.size() + l_cajas.size() == 1)
@@ -43,7 +43,7 @@ void Sistema::listar()
     }
     std::cout << std::endl;
 }
-//Agrega o a l_objetos
+// Agrega o a l_objetos
 bool Sistema::agregarObjeto(Objeto o)
 {
     if (l_objetos.size() > 0)
@@ -65,7 +65,7 @@ bool Sistema::agregarObjeto(Objeto o)
         return true;
     }
 }
-//Revisa si existe el objeto con nombre nom, en l_objetos
+// Revisa si existe el objeto con nombre nom, en l_objetos
 bool Sistema::buscarObjeto(std::string nom)
 {
     std::list<Objeto>::iterator It;
@@ -86,7 +86,7 @@ bool Sistema::buscarObjeto(std::string nom)
     }
     return false;
 }
-//Carga el objeto del archivo arch, en la memoria
+// Carga el objeto del archivo arch, en la memoria
 void Sistema::cargar(std::string arch)
 {
 
@@ -150,7 +150,7 @@ void Sistema::cargar(std::string arch)
         archivo.close();
     }
 }
-//Crea una caja envolvente, agregando todos los objetos de memoria, y generando los vertices que la forman
+// Crea una caja envolvente, agregando todos los objetos de memoria, y generando los vertices que la forman
 void Sistema::envolvente(std::string nom)
 {
     Caja caja;
@@ -199,7 +199,7 @@ bool Sistema::descargar(std::string nom)
     std::cout << "El objeto " << nom << " no ha sido cargado en memoria" << std::endl;
     return false;
 }
-//El objeto con nombre nom es guardado en e larchivo arch
+// El objeto con nombre nom es guardado en e larchivo arch
 void Sistema::guardar(std::string nom, std::string arch)
 {
     bool encontrado = false;
@@ -367,5 +367,45 @@ void Sistema::v_cercano(std::string nom, float x, float y, float z)
         float c1 = cercano->obtenerDato().x - x, c2 = cercano->obtenerDato().y - y, c3 = cercano->obtenerDato().z - z;
         float distancia = sqrt(pow(c1, 2) + pow(c2, 2) + pow(c3, 2));
         std::cout << "El vertice " << cercano->obtenerDato().indice << " " << cercano->obtenerDato() << " del objeto " << nom << " es el mas cercano al punto (" << x << "," << y << "," << z << "), a una distancia de " << distancia << std::endl;
+    }
+}
+void Sistema::v_cercanos_caja(std::string nom)
+{
+    std::list<Caja>::iterator It;
+    for (It = l_cajas.begin(); It != l_cajas.end(); It++)
+    {
+        std::list<Objeto>::iterator It2;
+        std::list<Objeto> objetos = It->getObjetos();
+        for (It2 = objetos.begin(); It2 != objetos.end(); It2++)
+        {
+            if (It2->getNombre() == nom)
+            {
+                std::cout << "Los vertices mas cercanos del objeto " << It2->getNombre() << " a las esquinas de la caja " << It->getNombre() << ": " << std::endl;
+                std::cout << "Esquina   Vertice   distancia" << std::endl;
+                NodoKD *cercano;
+                ArbolKD arbol;
+                float distancia;
+                std::list<Vertice>::iterator vert;
+                std::list<Vertice> vertices = It2->getVertices();
+                for (vert = vertices.begin(); vert != vertices.end(); vert++)
+                {
+                    punto nodo;
+                    nodo.indice = vert->getIndice();
+                    nodo.x = vert->getPx();
+                    nodo.y = vert->getPy();
+                    nodo.z = vert->getPz();
+                    arbol.insertar(nodo);
+                }
+                std::list<Vertice>::iterator It3;
+                std::list<Vertice> vertices2 = It->getVertices();
+                for (It3 = vertices2.begin(); It3 != vertices2.end(); It3++)
+                {
+                    cercano = arbol.cercano(It3->getPx(), It3->getPy(), It3->getPz());
+                    float c1 = cercano->obtenerDato().x - It3->getPx(), c2 = cercano->obtenerDato().y - It3->getPy(), c3 = cercano->obtenerDato().z - It3->getPz();
+                    float distancia = sqrt(pow(c1, 2) + pow(c2, 2) + pow(c3, 2));
+                    std::cout << "(" << It3->getPx()<<","<<It3->getPy()<<","<<It3->getPz()<<")   "<< cercano->obtenerDato() << "   " << distancia << std::endl;
+                }
+            }
+        }
     }
 }

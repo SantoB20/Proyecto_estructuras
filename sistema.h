@@ -23,6 +23,7 @@ class Sistema{
         bool descargar(std::string nom);
         void guardar(std::string nom, std::string arch);
         void v_cercano(std::string nom, float x, float y, float z);
+        void v_cercanos_caja(std::string nom);
 };
 
 #endif //_SISTEMA_H_
