@@ -7,6 +7,7 @@
 #include "caja.h"
 #include <fstream>
 #include "ArbolKD.h"
+#include "Graph.h"
 
 class Sistema{
     private:

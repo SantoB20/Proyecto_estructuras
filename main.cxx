@@ -196,7 +196,7 @@ int main()
                 }
                 else
                 {
-                    if (cant == 4 && atoi(parametros[0]) != 0 && atoi(parametros[1]) != 0 && atoi(parametros[2]) != 0 && atoi(parametros[3]) == 0)
+                    if (cant == 4 && atoi(parametros[3]) == 0)
                     {
                         float px = atoi(parametros[0]), py = atoi(parametros[1]), pz = atoi(parametros[2]);
                         string nomobjt = parametros[3];
@@ -218,7 +218,7 @@ int main()
                     }
                     else
                     {
-                        if (cant == 3 && atoi(parametros[0]) != 0 && atoi(parametros[1]) != 0 && atoi(parametros[2]) != 0)
+                        if (cant == 3)
                         {
                             float px = atoi(parametros[0]), py = atoi(parametros[1]), pz = atoi(parametros[2]);
                             if (sys.tamLCajas() + sys.tamLObjetos() == 0)
@@ -272,7 +272,7 @@ int main()
                 }
                 else
                 {
-                    if (cant == 3 && atoi(parametros[0]) != 0 && atoi(parametros[1]) != 0 && atoi(parametros[2]) == 0)
+                    if (cant == 3 && atoi(parametros[2]) == 0)
                     {
 
                         int in1 = atoi(parametros[0]);

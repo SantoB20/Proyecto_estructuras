@@ -40,17 +40,17 @@ unsigned int Vertice::getIndice(){
     return indice;
 }
 //obtener ubicacion en x
-int Vertice::getPx()
+float Vertice::getPx()
 {
     return px;
 }
 //obtener ubicacion en y
-int Vertice::getPy()
+float Vertice::getPy()
 {
     return py;
 }
 //obtener ubicacion en z
-int Vertice::getPz()
+float Vertice::getPz()
 {
     return pz;
 }

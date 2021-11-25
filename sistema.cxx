@@ -92,7 +92,7 @@ void Sistema::cargar(std::string arch)
 
     std::ifstream archivo(arch, std::ios::in);
     int tamV;
-    int val = 0;
+    float val = 0;
     Objeto obj;
     Vertice ver;
     std::string nomM;
@@ -185,14 +185,23 @@ void Sistema::envolvente(std::string nom)
 // Decarga el objeto de la memoria
 bool Sistema::descargar(std::string nom)
 {
-    Objeto obj;
     std::list<Objeto>::iterator It;
     for (It = l_objetos.begin(); It != l_objetos.end(); It++)
     {
         if (It->getNombre() == nom)
         {
+            std::cout << "El objeto " << It->getNombre() << " ha sido eliminado de la memoria de trabajo " << std::endl;
             l_objetos.erase(It);
-            std::cout << "El objeto " << obj.getNombre() << " ha sido eliminado de la memoria de trabajo " << std::endl;
+            return true;
+        }
+    }
+    std::list<Caja>::iterator It2;
+    for(It2 = l_cajas.begin(); It2 != l_cajas.end(); It2)
+    {
+        if(It2->getNombre()== nom)
+        {
+            std::cout << "El objeto " << It2->getNombre() << " ha sido eliminado de la memoria de trabajo " << std::endl;
+            l_cajas.erase(It2);
             return true;
         }
     }
@@ -259,6 +268,7 @@ void Sistema::guardar(std::string nom, std::string arch)
             file << "-1" << std::endl;
             file.close();
         }
+        std::cout << "El objeto " << nom << " ha sido guardado en el archivo " << arch << " exitosamente" << std::endl;
     }
 }
 void Sistema::v_cercano(std::string nom, float x, float y, float z)
@@ -405,6 +415,7 @@ void Sistema::v_cercanos_caja(std::string nom)
                     float distancia = sqrt(pow(c1, 2) + pow(c2, 2) + pow(c3, 2));
                     std::cout << "(" << It3->getPx()<<","<<It3->getPy()<<","<<It3->getPz()<<")   "<< cercano->obtenerDato() << "   " << distancia << std::endl;
                 }
+                return;
             }
         }
     }

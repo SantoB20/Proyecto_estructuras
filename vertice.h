@@ -15,9 +15,9 @@ class Vertice{
         void setPy(float y);
         void setPz(float z);
         unsigned int getIndice();
-        int getPx();
-        int getPy();
-        int getPz();
+        float getPx();
+        float getPy();
+        float getPz();
 };
 
 #endif //_VERTICE_H_
